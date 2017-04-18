@@ -1,0 +1,68 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Mi Recetario web</title>
+
+    <link href="/Bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/Bootstrap/css/custom.css" rel="stylesheet">
+
+  </head>
+  <body>
+
+    <br><br><center><h1>Registrarse en Recetario Web</h1></center><br>
+
+    <div class="container col-md-offset-4 col-md-4" id="fill">
+      <form class="form-horizontal" name="login", method="post", action="/register">
+        <fieldset>
+          <legend>Datos de usuario</legend>
+          <div class="form-group">
+            <label for="inputEmail" class="col-lg-3 control-label">Usuario: </label>
+            <div class="col-lg-9">
+              <input type="text" class="form-control" id="inputEmail" placeholder="Usuario" name="username">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="inputPassword" class="col-lg-3 control-label">Contraseña: </label>
+            <div class="col-lg-9">
+              <input type="password" class="form-control" id="inputPassword" placeholder="Contraseña" name="password">
+            </div>
+          </div><br>
+          <div class="form-group">
+            <label for="inputPassword" class="col-lg-3 control-label">Verifique Contraseña: </label>
+            <div class="col-lg-9">
+              <input type="password" class="form-control" id="inputPassword" placeholder="Contraseña" name="vPassword">
+            </div>
+          </div><br>
+          <div class="form-group">
+            <div class="col-lg-2 col-lg-offset-5">
+              <button type="submit" class="btn btn-success" id="btn">Registrarse</button>
+            </div>
+          </div>
+        </fieldset>
+      </form>
+    </div>
+
+    <div class="container col-md-4">
+    </div>
+    <div class="container col-md-12">
+      <br><br>
+    </div>
+
+    <% if (typeof error !== 'undefined') { %>
+      <div class="col-md-offset-3 col-md-6">
+          <div class="alert alert-dismissible alert-warning">
+              <button type="button" class="close" data-dismiss="alert">&times;</button>
+              <strong><%= error %></strong>
+          </div>
+      </div>
+    <% } %>
+
+    <% include footer %>
+
+    <script src="/Bootstrap/js/jquery.min.js"></script>
+    <script src="/Bootstrap/js/bootstrap.min.js"></script>
+  </body>
+</html>
