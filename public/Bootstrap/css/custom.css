@@ -1,3 +1,7 @@
+ul.nav a:hover {
+  background-color: #F44336 !important;
+}
+
 .form-horizontal legend{
     text-align: center;
     color: #212121;
@@ -20,8 +24,8 @@
 
 #nav {
   text-align: center;
-  background-color: #00BCD4;
-  box-shadow: 20px 0px 10px #B6B6B6;
+  background-color: #D32F2F;
+  box-shadow: 20px 0px 10px #BDBDBD;
 }
 
 #footer {
