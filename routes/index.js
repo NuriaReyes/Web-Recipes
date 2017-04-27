@@ -18,12 +18,12 @@ router.get('/', (req, res, next) => {
 })
 
 // GET register page
-router.get('/register', (req, res, next) => {
-  res.render('register')
+router.get('/signup', (req, res, next) => {
+  res.render('signup')
 })
 
 // Save new user
-router.post('/register', (req, res, next) => {
+router.post('/signup', (req, res, next) => {
 
 })
 
