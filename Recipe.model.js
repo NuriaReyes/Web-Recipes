@@ -6,12 +6,9 @@ var recipeSchema = new Schema({
   name: String,
   category: String,
   ingredients: [{
-    quantity: String,
-    measurementType: String,
-    name: String
+    ingredient: String
   }],
   steps: [{
-    number: String,
     step: String
   }],
   owner: {type: ObjectId, ref: 'User'}

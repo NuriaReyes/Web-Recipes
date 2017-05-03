@@ -34,6 +34,20 @@
 
               <div class="form-group">
                 <div class="col-md-8 col-md-offset-2">
+                  <label class="control-label" for="type">Tipo de platillo: </label>
+                  <select class="form-control" name="type">
+                    <option value="Ensaladas">Ensaladas</option>
+                    <option value="Platos fuertes">Platos fuertes</option>
+                    <option value="Sopas">Sopas</option>
+                    <option value="Postres">Postres</option>
+                    <option value="Snacks">Snacks</option>
+                    <option value="Bebidas">Bebidas</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <div class="col-md-8 col-md-offset-2">
                   <a><span onclick="drawIngredients()" class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span></a>
                   <a><span onclick="eraseIngredients()" class="glyphicon glyphicon-minus-sign" aria-hidden="true"></span></a>
                   <label class="control-label">Ingredientes: </label>
