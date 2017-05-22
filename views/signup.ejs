@@ -12,7 +12,7 @@
   </head>
   <body>
 
-    
+
     <div class="container col-md-8 col-md-offset-2">
       <div class="panel panel-default">
         <div class="panel-body">
@@ -20,7 +20,7 @@
           <br><br><center><h3>Registrarse en Recetario Web</h3></center><br>
 
           <div class="container col-md-offset-3 col-md-6" id="fill">
-            <form class="form-horizontal" name="login", method="post", action="/register">
+            <form class="form-horizontal" name="login", method="post", action="/signup">
               <fieldset>
                 <center><legend>Datos de usuario</legend></center>
                 <div class="form-group">
@@ -44,7 +44,7 @@
                     <span class="glyphicon glyphicon-lock" aria-hidden="true"></span>
                   </label>
                   <div class="col-md-9">
-                    <input type="password" class="form-control" id="inputPassword" placeholder="Verifique Contraseña" name="vPassword">
+                    <input type="password" class="form-control" id="inputPassword" placeholder="Verifique Contraseña" name="passCheck">
                   </div>
                 </div><br>
                 <div class="form-group">
@@ -67,6 +67,15 @@
                 <div class="alert alert-dismissible alert-warning">
                     <button type="button" class="close" data-dismiss="alert">&times;</button>
                     <strong><%= error %></strong>
+                </div>
+            </div>
+          <% } %>
+
+          <% if (typeof success !== 'undefined') { %>
+            <div class="col-md-offset-3 col-md-6">
+                <div class="alert alert-dismissible alert-success">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <strong><%= success %></strong>
                 </div>
             </div>
           <% } %>

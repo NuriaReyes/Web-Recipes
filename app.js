@@ -5,7 +5,9 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var multer = require('multer');
-
+//Auth
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
 //Setting up the db connection
 var mongoose = require('mongoose');
 var db = 'mongodb://localhost/myRecipes';
@@ -27,9 +29,25 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 
+//For passport module use
+app.use(require('express-session')({
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: false
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+//-----------------------------
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
+
+//passport
+var User = require('./Users.model.js');
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
