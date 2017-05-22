@@ -5,6 +5,7 @@ var ObjectId = mongoose.Schema.Types.ObjectId;
 var recipeSchema = new Schema({
   name: String,
   category: String,
+  link: String,
   ingredients: [{
     ingredient: String
   }],

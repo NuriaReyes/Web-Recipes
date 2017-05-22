@@ -16,7 +16,7 @@
     <% include navbar %>
 
     <div class="container col-md-3">
-      <a href="">
+      <a href="" data-target="#myModal" data-toggle="modal">
         <div class="panel panel-default">
           <div class="panel-body">
             <img src="https://s-media-cache-ak0.pinimg.com/736x/5e/2e/16/5e2e16311072434253456dd37121772c.jpg" height="242px" width="260px">
@@ -24,6 +24,36 @@
           </div>
         </div>
       </a>
+    </div>
+
+    <div class="modal fade" id="myModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">Sandwich de pollo</h4>
+          </div>
+          <div class="modal-body">
+            <h5> Ingredientes: </h5>
+            <ul style="list-style-type:square">
+              <li>Pan</li>
+              <li>Mantequilla</li>
+              <li>Pollo cocido</li>
+              <li>Verdura</li>
+            </ul>
+            <h5> Pasos para preparar: </h5>
+            <ol>
+              <li>Tostar el pan</li>
+              <li>Ponerle mantequilla</li>
+              <li>Poner pollo y verdura</li>
+              <li>Comer sandwich</li>
+            </ol>
+          </div>
+          <div class="modal-footer">
+            <a href="" class="btn btn-primary"> Modificar Receta </a>
+          </div>
+        </div>
+      </div>
     </div>
 
     <div class="container col-md-3">
