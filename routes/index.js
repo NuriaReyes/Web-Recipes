@@ -55,15 +55,27 @@ router.get('/logout', (req, res, next) => {
 
 // GET main page
 router.get('/home', (req, res, next) => {
-  Recipe.find({owner: req.user._id}).exec(function (err, recipes) {
-    if (err) {
-      console.log(err)
-      res.render('home', { error: 'Ocurrio un error inesperado' })
-    } else {
-      console.log(recipes)
-      res.render('home', { recipes })
-    }
-  })
+  if (req.query.type !== undefined) {
+    Recipe.find({owner: req.user._id, type: req.query.type}).exec(function (err, recipes) {
+      if (err) {
+        console.log(err)
+        res.render('home', { error: 'Ocurrio un error inesperado' })
+      } else {
+        console.log(recipes)
+        res.render('home', { recipes })
+      }
+    })
+  } else {
+    Recipe.find({owner: req.user._id}).exec(function (err, recipes) {
+      if (err) {
+        console.log(err)
+        res.render('home', { error: 'Ocurrio un error inesperado' })
+      } else {
+        console.log(recipes)
+        res.render('home', { recipes })
+      }
+    })
+  }
 })
 
 // GET new page
