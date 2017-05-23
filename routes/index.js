@@ -58,6 +58,7 @@ router.get('/home', (req, res, next) => {
   Recipe.find({owner: req.user._id}).exec(function (err, recipes) {
     if (err) {
       console.log(err)
+      res.render('home', { error: 'Ocurrio un error inesperado' })
     } else {
       console.log(recipes)
       res.render('home', { recipes })
@@ -115,14 +116,17 @@ router.post('/recipe/save', (req, res, next) => {
   }
 })
 
-// Update a recipe
-router.get('/recipe/update/:id', (req, res, next) => {
-  res.render('update')
-})
-
-// See a recipe
-router.get('recipe/:id', (req, res, next) => {
-  res.render('recipe')
+// Search for a recipe
+router.post('/recipe/find', (req, res, next) => {
+  console.log(req.body.food)
+  Recipe.find({owner: req.user._id, $text: {$search: req.body.food}}).exec(function (err, recipes) {
+    if (err) {
+      console.log(err)
+      res.render('home', {error: 'Ocurrio un error inesperado'})
+    }
+    console.log(recipes)
+    res.render('home', { recipes })
+  })
 })
 
 module.exports = router
