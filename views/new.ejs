@@ -15,11 +15,33 @@
 
     <% include navbar %>
 
+    <% if (typeof error !== 'undefined') { %>
+      <div class="col-md-offset-3 col-md-6">
+          <div class="alert alert-dismissible alert-warning">
+              <button type="button" class="close" data-dismiss="alert">&times;</button>
+              <strong><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                <%= error %>
+              </strong>
+          </div>
+      </div>
+    <% } %>
+
+    <% if (typeof success !== 'undefined') { %>
+      <div class="col-md-offset-3 col-md-6">
+          <div class="alert alert-dismissible alert-success">
+              <button type="button" class="close" data-dismiss="alert">&times;</button>
+              <strong><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                <%= success %>
+              </strong>
+          </div>
+      </div>
+    <% } %>
+
     <div class="container col-md-8 col-md-offset-2">
       <div class="panel panel-default">
         <div class="panel-body">
 
-          <form class="form-horizontal" method="post">
+          <form class="form-horizontal" name="newRecipe" method="post" action="/recipe/save">
             <fieldset>
               <div class="col-md-10 col-md-offset-1">
                 <legend><center>Registrar Nueva Receta</center></legend>
@@ -81,9 +103,12 @@
                 </div>
               </div>
 
+              <input type="text" id="qIngredients" name="qIngredients" value="" hidden="true">
+              <input type="text" id="qSteps" name="qSteps" value="" hidden="true">
+
               <div class="form-group">
                 <div class="col-md-offset-5 col-md-2">
-                  <button formaction="/recipe/save" type="submit" class="btn btn-primary">Guardar Receta</button>
+                  <button type="submit" class="btn btn-primary">Guardar Receta</button>
                 </div>
               </div>
             </fieldset>
@@ -93,7 +118,6 @@
       </div>
     </div>
 
-
     <script>
       var i = 0;
       var ingredientsContainer = document.getElementById('ingredientsList');
@@ -101,10 +125,11 @@
         var nodeIng = document.createElement("DIV");
         nodeIng.innerHTML =
           `<div class="form-group" id="ingredient_${i}">
-              <input type="text" class="form-control" placeholder="Ingrediente..." name="ing_${i}" onkeypress="return drawIng(event)">
+              <input type="text" class="form-control" placeholder="Ingrediente..." name="ing" onkeypress="return drawIng(event)">
           </div>`;
         ingredientsContainer.appendChild(nodeIng);
           i++;
+          document.getElementById("qIngredients").value = i;
       }
       var drawIng = function(e){
         if(e.keyCode == 13){
@@ -118,6 +143,7 @@
           console.log(i);
           var ingredient = document.getElementById('ingredient_' + i);
           ingredient.parentNode.removeChild(ingredient);
+          document.getElementById("qIngredients").value = i;
         }
       }
       drawIngredients();
@@ -131,10 +157,11 @@
         nodeSteps.innerHTML =
         `<div class="form-group" id="step_${j}">
             Paso ${j}
-            <input type="text" class="form-control" placeholder="Describa paso" name="sDirections_${j}" onkeypress="return drawSt(event)">
+            <input type="text" class="form-control" placeholder="Describa paso" name="step" onkeypress="return drawSt(event)">
           </div>`;
         stepsContainer.appendChild(nodeSteps);
           j++;
+          document.getElementById("qSteps").value = j;
       }
       var drawSt = function(e){
         if(e.keyCode == 13){
@@ -148,6 +175,7 @@
           console.log(j);
           var step = document.getElementById('step_' + j);
           step.parentNode.removeChild(step);
+          document.getElementById("qSteps").value = j;
         }
       }
         drawSteps();
