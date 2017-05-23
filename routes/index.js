@@ -55,7 +55,14 @@ router.get('/logout', (req, res, next) => {
 
 // GET main page
 router.get('/home', (req, res, next) => {
-  res.render('home')
+  Recipe.find({owner: req.user._id}).exec(function (err, recipes) {
+    if (err) {
+      console.log(err)
+    } else {
+      console.log(recipes)
+      res.render('home', { recipes })
+    }
+  })
 })
 
 // GET new page
@@ -67,7 +74,7 @@ router.get('/recipe/new', (req, res, next) => {
 // Save a recipe
 router.post('/recipe/save', (req, res, next) => {
   console.log(req.body)
-  if (req.body.name !== '') {
+  if (req.body.name !== '' && req.body.ing !== '' && req.body.step !== '') {
     Recipe.find({name: req.body.name}).exec(function (err, recipes) {
       if (err) {
         res.render('new', {error: 'Hubo un error inesperado'})
@@ -104,7 +111,7 @@ router.post('/recipe/save', (req, res, next) => {
       }
     })
   } else {
-    res.render('new', {error: 'No se puede guardar receta sin nombre'})
+    res.render('new', {error: 'No se puede guardar receta si no pone nombre, ingredientes e instrucciones'})
   }
 })
 

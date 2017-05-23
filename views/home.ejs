@@ -15,82 +15,52 @@
 
     <% include navbar %>
 
-    <div class="container col-md-3">
-      <a href="" data-target="#myModal" data-toggle="modal">
-        <div class="panel panel-default">
-          <div class="panel-body">
-            <img src="https://s-media-cache-ak0.pinimg.com/736x/5e/2e/16/5e2e16311072434253456dd37121772c.jpg" height="242px" width="260px">
-            <h4>Sandwich de pollo</h4>
+    <% if (typeof recipes !== 'undefined') { %>
+      <% for(var i = 0; i < recipes.length; i++) { %>
+        <div class="container col-md-3">
+          <a href="" data-target=<%= "#" + recipes[i].name %> data-toggle="modal">
+            <div class="panel panel-default">
+              <div class="panel-body">
+                <% if (recipes[i].link) { %>
+                  <img src=<%= recipes[i].link %> height="242px" width="260px">
+                <% } else { %>
+                  <img src="https://img.clipartfest.com/688d237cb6eb19798e08b3e4d78fb0c5_follow-us-food-clipart-transparent_298-231.png" height="242px" width="260px">
+                <% } %>
+                <h4><%= recipes[i].name %></h4>
+              </div>
+            </div>
+          </a>
+        </div>
+
+        <div class="modal fade" id=<%= recipes[i].name %>>
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title"><%= recipes[i].name %></h4>
+              </div>
+              <div class="modal-body">
+                <h5> Ingredientes: </h5>
+                <ul style="list-style-type:square">
+                  <% for(var j = 0; j < recipes[i].ingredients.length; j++) { %>
+                    <li><%= recipes[i].ingredients[j] %></li>
+                  <% } %>
+                </ul>
+                <h5> Pasos para preparar: </h5>
+                <ol>
+                  <% for(var j = 0; j < recipes[i].steps.length; j++) { %>
+                    <li><%= recipes[i].steps[j] %></li>
+                  <% } %>
+                </ol>
+              </div>
+              <div class="modal-footer">
+                <a href="" class="btn btn-primary"> Modificar Receta </a>
+              </div>
+            </div>
           </div>
         </div>
-      </a>
-    </div>
-
-    <div class="modal fade" id="myModal">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title">Sandwich de pollo</h4>
-          </div>
-          <div class="modal-body">
-            <h5> Ingredientes: </h5>
-            <ul style="list-style-type:square">
-              <li>Pan</li>
-              <li>Mantequilla</li>
-              <li>Pollo cocido</li>
-              <li>Verdura</li>
-            </ul>
-            <h5> Pasos para preparar: </h5>
-            <ol>
-              <li>Tostar el pan</li>
-              <li>Ponerle mantequilla</li>
-              <li>Poner pollo y verdura</li>
-              <li>Comer sandwich</li>
-            </ol>
-          </div>
-          <div class="modal-footer">
-            <a href="" class="btn btn-primary"> Modificar Receta </a>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="container col-md-3">
-      <div class="panel panel-default">
-        <div class="panel-body">
-          <img src="http://www.bestfon.info/images/joomgallery/originals/comida_9/comida_46_20120413_1185044355.jpg" height="242px" width="260px">
-          <h4>Brocheta de pollo</h4>
-        </div>
-      </div>
-    </div>
-
-    <div class="container col-md-3">
-      <div class="panel panel-default">
-        <div class="panel-body">
-          <img src="https://www.buenasalud.net/wp-content/uploads/2015/07/Comida-para-diabeticos-e-hipertensos-recetas.jpg" height="242px" width="260px">
-          <h4>Sopa de verduras</h4>
-        </div>
-      </div>
-    </div>
-
-    <div class="container col-md-3">
-      <div class="panel panel-default">
-        <div class="panel-body">
-          <img src="http://dominio.fm/wp-content/uploads/2015/05/r5ln4l2uz2.jpg" height="242px" width="260px">
-          <h4>Ensalada tropical</h4>
-        </div>
-      </div>
-    </div>
-
-    <div class="container col-md-3">
-      <div class="panel panel-default">
-        <div class="panel-body">
-          <img src="http://www.viajejet.com/wp-content/viajes/Gastronom%C3%ADa-canadiense.jpg" height="242px" width="260px">
-          <h4>Hot-cakes</h4>
-        </div>
-      </div>
-    </div>
+      <% } %>
+    <% } %>
 
     <script src="/Bootstrap/js/jquery.min.js"></script>
     <script src="/Bootstrap/js/bootstrap.min.js"></script>
