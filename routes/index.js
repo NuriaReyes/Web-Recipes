@@ -14,7 +14,6 @@ router.get('/', (req, res, next) => {
 
 /* Log-in to the system TODO:DB-connection */
 router.post('/login', passport.authenticate('local', { failureRedirect: '/error' }), function (req, res, next) {
-  console.log(req.user)
   res.redirect('/home')
 })
 
@@ -36,7 +35,6 @@ router.post('/signup', (req, res, next) => {
       if (err) {
         return res.render('signup', { error: 'El usuario que intenta ingresar ya está registrado' })
       }
-      console.log(account)
       return res.render('login', {success: 'Usuario registrado con éxito'})
     })
   }
@@ -58,20 +56,16 @@ router.get('/home', (req, res, next) => {
   if (req.query.type !== undefined) {
     Recipe.find({owner: req.user._id, type: req.query.type}).exec(function (err, recipes) {
       if (err) {
-        console.log(err)
         res.render('home', { error: 'Ocurrio un error inesperado' })
       } else {
-        console.log(recipes)
         res.render('home', { recipes })
       }
     })
   } else {
     Recipe.find({owner: req.user._id}).exec(function (err, recipes) {
       if (err) {
-        console.log(err)
         res.render('home', { error: 'Ocurrio un error inesperado' })
       } else {
-        console.log(recipes)
         res.render('home', { recipes })
       }
     })
@@ -80,13 +74,11 @@ router.get('/home', (req, res, next) => {
 
 // GET new page
 router.get('/recipe/new', (req, res, next) => {
-  console.log(req.user._id)
   res.render('new')
 })
 
 // Save a recipe
 router.post('/recipe/save', (req, res, next) => {
-  console.log(req.body)
   if (req.body.name !== '' && req.body.ing !== '' && req.body.step !== '') {
     Recipe.find({name: req.body.name}).exec(function (err, recipes) {
       if (err) {
@@ -98,7 +90,6 @@ router.post('/recipe/save', (req, res, next) => {
           }
 
           if (recipes.length === 0) {
-            console.log('Nueva receta')
             var newRecipe = new Recipe()
 
             newRecipe.name = req.body.name
@@ -110,10 +101,8 @@ router.post('/recipe/save', (req, res, next) => {
 
             newRecipe.save(function (err, recipe) {
               if (err) {
-                console.log(err)
                 res.render('new', {error: 'No se pudo guardar receta'})
               } else {
-                console.log(recipe)
                 res.render('new', {success: 'Receta guardada con éxito'})
               }
             })
@@ -133,11 +122,48 @@ router.post('/recipe/find', (req, res, next) => {
   console.log(req.body.food)
   Recipe.find({owner: req.user._id, $text: {$search: req.body.food}}).exec(function (err, recipes) {
     if (err) {
-      console.log(err)
       res.render('home', {error: 'Ocurrio un error inesperado'})
     }
     console.log(recipes)
     res.render('home', { recipes })
+  })
+})
+
+router.get('/recipe/update/:id', (req, res, next) => {
+  Recipe.findOne({_id: [req.params.id]}).exec(function (err, recipe) {
+    if (err) {
+      console.log('ocurrio error al cargar pagina')
+      console.log(err)
+    } else {
+      console.log(recipe)
+      res.render('update', { recipe })
+    }
+  })
+})
+
+router.post('/recipe/update/:id', function (req, res, next) {
+  Recipe.findById([req.params.id], function (err, recipe) {
+    if (err) {
+      console.log(err)
+      res.render('home', {error: 'No se pudo modificar receta'})
+    }
+    recipe.name = req.body.name
+    recipe.type = req.body.type
+    recipe.link = req.body.link
+    recipe.ingredients = req.body.ing
+    recipe.steps = req.body.step
+
+    recipe.save(function (err, upRecipe) {
+      if (err) {
+        console.log(err)
+        console.log('No se pudo guardar receta')
+        res.redirect('/home')
+      } else {
+        console.log(upRecipe)
+        console.log('Receta modificada con éxito')
+        res.render('home', {success: 'Se modificó con éxito la receta'})
+      }
+    })
   })
 })
 
